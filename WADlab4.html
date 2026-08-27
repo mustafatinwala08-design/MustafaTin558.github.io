@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multi-Frame Webpage</title>
+</head>
+<body>
+
+  <h1 align="center">My Webpage Hub</h1>
+
+  <table width="100%" border="1" cellpadding="10" cellspacing="0">
+   <tr>
+      <td width="50%" valign="top" align="center">
+        <h2>1. Map</h2>
+        <iframe 
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-0.0040%2C51.4761%2C0.0003%2C51.4785&amp;layer=mapnik" 
+          width="100%" 
+          height="350" 
+          title="Map">
+        </iframe>
+      </td>
+
+      <td width="50%" valign="top" align="center">
+        <h2>2. Video</h2>
+        <iframe 
+          src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+          width="100%" 
+          height="350" 
+          title="Video Player">
+        </iframe>
+      </td>
+    </tr>
+
+    <tr>
+      <td width="50%" valign="top" align="center">
+        <h2>3. Image</h2>
+        <iframe 
+          src="mustafa.jpg" 
+          width="100%" 
+          height="350" 
+          title="Image Viewer">
+        </iframe>
+      </td>
+
+      <td width="50%" valign="top" align="center">
+        <h2>4. About Me</h2>
+        <!-- Embeds the note directly using inline HTML without needing an external file -->
+        <iframe 
+          srcdoc="
+            <html>
+              <body style='font-family: sans-serif; padding: 10px;'>
+                <h3>Mustafa Tinwala</h3>
+                <p><strong>Age:</strong> 18 Years Old</p>
+                <p><strong>Education:</strong> Computer Science Engineering Student at Vishwakarma University</p>
+                <p><strong>Interests:</strong> Football, Gym, Coding, Billiards</p>
+              </body>
+            </html>" 
+          width="100%" 
+          height="350" 
+          title="About Me Note">
+        </iframe>
+      </td>
+    </tr>
+
+  </table>
+
+</body>
+</html>
