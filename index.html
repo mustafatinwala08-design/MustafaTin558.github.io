@@ -10,6 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- github-calendar CSS (responsive) -->
+  <link rel="stylesheet" href="https://unpkg.com/github-calendar/dist/github-calendar-responsive.css">
+
   <style>
     :root {
       --bg-color: #080d1a;
@@ -529,6 +532,29 @@
       border-radius: 4px;
     }
 
+    /* The calendar container will receive the calendar from github-calendar lib */
+    #github-calendar {
+      width: 100%;
+      max-width: 800px;
+      color: var(--text-main);
+    }
+
+    /* Make the injected SVG responsive and visually similar to your previous image */
+    #github-calendar .contrib-graph {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    /* Optional: tweak small legend & text colors from the injected calendar */
+    #github-calendar .contrib-legend,
+    #github-calendar .contrib-legend + p,
+    #github-calendar caption,
+    #github-calendar a {
+      color: var(--text-muted);
+      font-family: var(--mono-font);
+    }
+
+    /* Keep a similar look to the old .contribution-img sizing */
     .contribution-img {
       width: 100%;
       max-width: 800px;
@@ -920,17 +946,23 @@
       </p>
 
       <div class="chart-wrapper">
-        <img 
-          src="https://ghchart.rshah.org/38bdf8/mustafatinwala" 
-          alt="Mustafa Tinwala Git Contributions Chart" 
-          class="contribution-img"
-          loading="lazy"
-        />
+        <!-- Dynamic calendar injected here by github-calendar -->
+        <div id="github-calendar" class="contribution-img" aria-label="GitHub contribution calendar for mustafatinwala"></div>
+
+        <!-- noscript fallback to the previous static image (keeps a working view when JS is disabled) -->
+        <noscript>
+          <img 
+            src="https://ghchart.rshah.org/38bdf8/mustafatinwala"
+            alt="Mustafa Tinwala Git Contributions Chart"
+            class="contribution-img"
+            loading="lazy"
+          />
+        </noscript>
 
         <div class="chart-footer">
           <div>
             <span>Target Repo: </span>
-            <span style="color: var(--accent);">github.com/mustafatinwala</span>
+            <a href="https://github.com/mustafatinwala" style="color: var(--accent);" target="_blank" rel="noopener noreferrer">github.com/mustafatinwala</a>
           </div>
           <div class="chart-legend">
             <span>Less</span>
@@ -1009,6 +1041,9 @@
       </div>
     </div>
   </footer>
+
+  <!-- github-calendar JS -->
+  <script src="https://unpkg.com/github-calendar"></script>
 
   <script>
     // 1. Dynamic Typing Effect
@@ -1122,6 +1157,19 @@
       resizeCanvas();
       initParticles();
       animateParticles();
+
+      // Initialize GitHub contributions calendar
+      // Replace "mustafatinwala" with your GitHub username if needed
+      try {
+        if (window.GitHubCalendar) {
+          // options: responsive true, hide the "last year" summary text by setting global_stats to false
+          GitHubCalendar("#github-calendar", "mustafatinwala", { responsive: true, global_stats: false, tooltips: true });
+        } else {
+          console.warn("GitHubCalendar library not loaded.");
+        }
+      } catch (err) {
+        console.error("Error initializing GitHubCalendar:", err);
+      }
     });
 
     window.addEventListener('resize', () => {
